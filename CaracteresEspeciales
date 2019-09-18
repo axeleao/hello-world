@@ -1,0 +1,125 @@
+Convert('ÑÁÉÍÓÚÀÈÌÒÙÃÕÊÎÔÛÄËÏÖÜÇñáéíóúàèìòùâêîôûäëïöüç:,+-|!#$%&/()*@.Ã“Ã³Ã­ÃÃÃ¡Ã±Ã‘Ã©Ã‰ÃšÃº', 'NAEIOUAEIOUAOEIOUAEIOUCnaeiouaeiouaeiouaeiouc', ... )
+
+Convert('ÑÁÉÍÓÚÀÈÌÒÙÃÕÊÎÔÛÄËÏÖÜÇñáéíóúàèìòùâêîôûäëïöüç:,+-|!#$%&/()*@.“³­¡±¼œ‘©‰šº', 'NAEIOUAEIOUAOEIOUAEIOUCnaeiouaeiouaeiouaeiouc',...)
+
+
+ÑÁÉÍÓÚÀÈÌÒÙÃÕÊÎÔÛÄËÏÖÜÇñáéíóúàèìòùâêîôûäëïöüç
+NAEIOUAEIOUAOEIOUAEIOUCnaeiouaeiouaeiouaeiouc
+
+Convert('ÑÁÉÍÓÚÀÈÌÒÙÃÕÊÎÔÛÄËÏÖÜÇñáéíóúàèìòùâêîôûäëïöüç:,+-|!#$%&/()*@.“³­¡±¼œ‘©‰šº', 'NAEIOUAEIOUAOEIOUAEIOUCnaeiouaeiouaeiouaeiouc',
+	EREPLACE(
+			EREPLACE(
+					EREPLACE(
+							EREPLACE(
+									EREPLACE(
+											EREPLACE(
+													EREPLACE(
+															EREPLACE(
+																	EREPLACE(
+																			EREPLACE(
+																					EREPLACE(
+																							EREPLACE(
+																									EREPLACE(
+																											EREPLACE(
+																													...
+																													,'Ã±','n')
+																											,'Ã‘','N')
+																									,'Ã¼','u')
+																							,'Ãœ','U')
+																					,'Ãº','u')
+																			,'Ãš','U')
+																	,'Ã³','o')
+															,'Ã“','O')
+													,'Ã­','i')
+											,'Ã','I')
+									,'Ã©','e')
+							,'Ã‰','E')
+					,'Ã¡','a')
+			,'Ã','A')
+)
+
+EREPLACE('','','')
+
+
+
+EREPLACE(
+		EREPLACE(
+				EREPLACE(
+						EREPLACE(
+								EREPLACE(
+										EREPLACE(
+												EREPLACE(
+														EREPLACE(
+																EREPLACE(
+																		EREPLACE(
+																				EREPLACE(
+																						EREPLACE(
+																								EREPLACE(
+																										EREPLACE(
+																												...
+																												,'ñ','Ã±')
+																										,'Ñ','Ã‘')
+																								,'ü','Ã¼')
+																						,'Ü','Ãœ')
+																				,'ú','Ãº')
+																		,'Ú','Ãš')
+																,'ó','Ã³')
+														,'Ó','Ã“')
+												,'í','Ã­')
+										,'Í','Ã')
+								,'é','Ã©')
+						,'É','Ã‰')
+				,'á','Ã¡')
+		,'Á','Ã')
+
+
+EREPLACE('','','')
+
+
+EREPLACE(
+		EREPLACE(
+				EREPLACE(
+						EREPLACE(
+								EREPLACE(
+										EREPLACE(
+												EREPLACE(
+														EREPLACE(
+																EREPLACE(
+																		EREPLACE(
+																				EREPLACE(
+																						EREPLACE(
+																								EREPLACE(
+																										EREPLACE(
+																												...
+																												'Ã±','ñ',)
+																										'Ã‘','Ñ',)
+																								,'Ã¼','ü')
+																						,'Ãœ','Ü')
+																				,'Ãº','ú')
+																		,'Ãš','Ú')
+																,'Ã³','ó')
+														,'Ã“','Ó')
+												,'Ã­','í')
+										,'Ã','Í')
+								,'Ã©','é')
+						,'Ã‰','É')
+				,'Ã¡','á')
+		,'Ã','Á')
+		
+		
+		
+		
+Á	Ã	Á->Ã
+á	Ã¡	á->Ã¡
+É	Ã‰	É->Ã‰
+é	Ã©	é->Ã©
+Í	Ã	Í->Ã
+í	Ã­	í->Ã­
+Ó	Ã“	Ó->Ã“
+ó	Ã³	ó->Ã³
+Ú	Ãš	Ú->Ãš
+ú	Ãº	ú->Ãº
+Ü	Ãœ	Ü->Ãœ
+ü	Ã¼	ü->Ã¼
+Ñ	Ã‘	Ñ->Ã‘
+ñ	Ã±	ñ->Ã±
