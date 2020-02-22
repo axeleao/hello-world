@@ -27,17 +27,26 @@ BEGIN
   --dbms_output.put_line (RANDOM);  
 END;
   
-  
+
   
   /*
-  SELECT TO_CHAR(DBMS_RANDOM.value(1234,9876),9999) INTO RANDOM  from dual; 
-  
+  SELECT TO_CHAR(DBMS_RANDOM.value(1234,9876),9999) INTO NUM_ADIV from dual; 
+
+
+
+
+
   FOR VERIF IN 1 .. 3
     LOOP
+      ADIV_CONT := SUBSTR(NUM_ADIV,1,1);
       dbms_output.put_line ('FUERA: ' || VERIF);
       FOR VERIF_2 IN VERIF + 1  .. 4
         LOOP
-        dbms_output.put_line ('ADENTRO' || VERIF_2);
+          RANDOM_CONT := SUBSTR(RANDOM,1,1);
+          IF ADIV_CONT = RANDOM_CONT THEN FIJA = FIJA + 1;
+          ELSIF ADIV_CONT = RANDOM_CONT THEN PICA = PICA +1;
+          END IF;
+          dbms_output.put_line ('ADENTRO' || VERIF_2);
         END LOOP;
     END LOOP;  
   */
