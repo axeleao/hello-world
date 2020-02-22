@@ -1,56 +1,55 @@
--- TAREA VERIFICAR NUMERO REPETIDO
-
 DECLARE
   RANDOM NUMBER(20);
   NUM_1 VARCHAR2(1);
   NUM_2 VARCHAR2(1);
   REP NUMBER(1) := 1;
 ADIV_CONT NUMBER(1);
-NUM_CONT NUMBER(1);
-FIJA NUM(1);
-PICA NUM(1);
-FUNCTION REPETIDO(NUMERO IN NUMBER)  
-
+RANDOM_CONT NUMBER(1);
+NUM_CONT NUMBER(4);
+FIJA NUMBER(1);
+PICA NUMBER(1);
+CONTADOR NUMBER(5) := 1;
+--FUNCTION REPETIDO(NUMERO IN NUMBER)
 BEGIN
   --  SELECT DBMS_RANDOM.value into RANDOM from dual;
   RANDOM := DBMS_RANDOM.value(1234, 9876);
   SELECT TO_CHAR(DBMS_RANDOM.value(1234, 9876), 9999) INTO RANDOM from dual;
-
   FOR VERIF IN 1 .. 3 LOOP
     NUM_1 := SUBSTR(RANDOM, VERIF, 1);
         dbms_output.put_line('FUERA: ' || RANDOM || ' ' || NUM_1 || ' ' || VERIF);
-  
     FOR VERIF_2 IN VERIF + 1 .. 4 LOOP
       NUM_2 := SUBSTR(RANDOM, VERIF_2, 1);
       IF NUM_1 = NUM_2 THEN REP := 0; END IF;
       dbms_output.put_line('ADENTRO' || ' ' || NUM_1 || ' ' || NUM_2 || 'IS_REP: ' || REP);
-      
     END LOOP;
-    
   END LOOP;
-  --dbms_output.put_line (RANDOM);  
-END;
+  --dbms_output.put_line (RANDOM);
   
-
-  
-  /*
-  SELECT TO_CHAR(DBMS_RANDOM.value(1234,9876),9999) INTO NUM_ADIV from dual; 
-
-
-
-
-
-  FOR VERIF IN 1 .. 3
+    --SELECT TO_CHAR(DBMS_RANDOM.value(1234,9876),9999) INTO NUM_ADIV from dual;
+	
+------------
+WHILE CONTADOR <= 8
+LOOP
+	FIJA:= 0;
+	PICA :=0;
+	NUM_CONT := DBMS_RANDOM.value(1234, 9876);
+  FOR VERIF IN 1 .. 4
     LOOP
-      ADIV_CONT := SUBSTR(NUM_ADIV,1,1);
-      dbms_output.put_line ('FUERA: ' || VERIF);
-      FOR VERIF_2 IN VERIF + 1  .. 4
+      ADIV_CONT := SUBSTR(NUM_CONT,VERIF,1);
+      --dbms_output.put_line ('NUM_CONT  ' || NUM_CONT || 'ADIV_CONT  ' || ADIV_CONT );
+      FOR VERIF_2 IN 1  .. 4
         LOOP
-          RANDOM_CONT := SUBSTR(RANDOM,1,1);
-          IF ADIV_CONT = RANDOM_CONT THEN FIJA = FIJA + 1;
-          ELSIF ADIV_CONT = RANDOM_CONT THEN PICA = PICA +1;
+          RANDOM_CONT := SUBSTR(RANDOM,VERIF_2,1);
+          IF ADIV_CONT = RANDOM_CONT AND VERIF = VERIF_2 THEN FIJA := FIJA + 1;
+          ELSIF ADIV_CONT = RANDOM_CONT THEN PICA := PICA +1;
           END IF;
-          dbms_output.put_line ('ADENTRO' || VERIF_2);
+          -- dbms_output.put_line ('ADENTRO' || VERIF_2);
         END LOOP;
-    END LOOP;  
-  */
+    END LOOP;
+	
+	dbms_output.put_line (RANDOM || '--> ' || NUM_CONT || ' F: ' || FIJA || ' P: ' || PICA);
+	
+	CONTADOR := CONTADOR + 1;
+END LOOP;
+END;
+/
