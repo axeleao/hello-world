@@ -1,0 +1,154 @@
+-- PICAS Y FIJAS CON ARREGLOS, NUMERO ALEATORIO (INICIAL Y COMPARACIÓN)
+-- ****Arreglos consultado 24/02/2020 en:  https://magicplsql.blogspot.com/2017/01/las-colecciones-de-plsql.html
+DECLARE
+RANDOM NUMBER(20);
+NUM_1 VARCHAR2(1);
+NUM_2 VARCHAR2(1);
+REP NUMBER(1);
+ADIV_CONT NUMBER(1);
+RANDOM_CONT NUMBER(1);
+NUM_CONT NUMBER(20);
+FIJA NUMBER(1) := 0;
+PICA NUMBER(1);
+CONTADOR NUMBER(5) := 1;
+CONT_REPET NUMBER(20) := 0;
+CANT_CIFRAS NUMBER (1) := 8;
+CIF_UP_RANDOM NUMBER (9) := 123456789;
+CIF_DOWN_RANDOM NUMBER (9) := 987456321;
+NUM_ACTUAL NUMBER(1);
+	--Definición del Tipo Tabla: MATRICES ASOCIATIVAS
+    TYPE typ_assoc_array IS TABLE OF
+        NUMBER(1)
+          INDEX BY PLS_INTEGER;
+          
+    --Declaramos una Variable del Tipo Tabla anterior:
+    RANDOM_ARRAY   typ_assoc_array;
+    NUM_CONT_ARRAY   typ_assoc_array;
+
+BEGIN
+
+LOOP
+  CONT_REPET := CONT_REPET + 1;
+  REP := 0;
+  ----- FOR PARA INSERTAR EN ARREGLO RANDOM
+  FOR INS_RANDOM IN 1 .. CANT_CIFRAS
+    LOOP
+      RANDOM := DBMS_RANDOM.value(0, 9);
+      --dbms_output.put_line('RANDOM: ' || RANDOM);
+      RANDOM_ARRAY(INS_RANDOM):= RANDOM;
+    END LOOP;
+  -----
+  
+  FOR VERIF IN 1 .. CANT_CIFRAS-1 LOOP
+    --NUM_1 := SUBSTR(RANDOM, VERIF, 1);
+    NUM_1 := RANDOM_ARRAY(VERIF);
+        --dbms_output.put_line('FUERA: ' || RANDOM || ' ' || NUM_1 || ' ' || VERIF);
+    FOR VERIF_2 IN VERIF + 1 .. CANT_CIFRAS LOOP
+      --NUM_2 := SUBSTR(RANDOM, VERIF_2, 1);
+      NUM_2 := RANDOM_ARRAY(VERIF_2);
+      IF NUM_1 = NUM_2 THEN REP := 1; END IF;
+      --dbms_output.put_line('ADENTRO' || ' ' || NUM_1 || ' ' || NUM_2 || 'IS_REP: ' || REP); -- LINEA 31
+    END LOOP;
+  END LOOP;
+  EXIT WHEN REP = 0 OR CONT_REPET = 1000000;
+  END LOOP;
+ dbms_output.put_line('REPETICIONES: ' || CONT_REPET);
+  
+    /*
+    DBMS_OUTPUT.PUT_LINE('PRIMERA POS: '||RANDOM_ARRAY(1));
+    DBMS_OUTPUT.PUT(RANDOM_ARRAY(2));
+    FOR i IN 1 .. 4 LOOP
+      DBMS_OUTPUT.put(RANDOM_ARRAY(1));
+    END LOOP;
+    */
+    
+    dbms_output.put_line (RANDOM_ARRAY(1)||
+                         	RANDOM_ARRAY(2)||
+                          RANDOM_ARRAY(3)||
+                          RANDOM_ARRAY(4)||
+                          RANDOM_ARRAY(5)||
+                          RANDOM_ARRAY(6)||
+                          RANDOM_ARRAY(7)||
+                          RANDOM_ARRAY(8)/*||
+                          RANDOM_ARRAY(9)*/
+                          );  
+    
+
+------------------- VERIFICA PICAS Y FIJAS
+--WHILE FIJA = CANT_CIFRAS-- CONTADOR <= 50
+LOOP
+FIJA:= 0; 
+PICA :=0;
+CONT_REPET := 0;
+--NUM_CONT := DBMS_RANDOM.value(SUBSTR(CIF_UP_RANDOM, 1, CANT_CIFRAS), SUBSTR(CIF_DOWN_RANDOM, 1, CANT_CIFRAS));
+
+------ ITERACIÓN VERIFICA REPETIDOS EN ALEATORIO
+LOOP
+  CONT_REPET := CONT_REPET + 1;
+  REP := 0;
+  ----- FOR PARA INSERTAR EN ARREGLO NUM_CONT_ARRAY
+  --FOR INS_RANDOM IN 1 .. CANT_CIFRAS
+  FOR INS_NUM_CONT_ARRAY IN 1 .. CANT_CIFRAS
+    LOOP
+      NUM_CONT := DBMS_RANDOM.value(0, 9);
+      --dbms_output.put_line('RANDOM: ' || RANDOM);
+      NUM_CONT_ARRAY(INS_NUM_CONT_ARRAY):= NUM_CONT;
+    END LOOP;
+  -----
+  
+  FOR VERIF IN 1 .. CANT_CIFRAS-1 LOOP
+    NUM_1 := NUM_CONT_ARRAY(VERIF);
+        --dbms_output.put_line('FUERA: ' || RANDOM || ' ' || NUM_1 || ' ' || VERIF);
+    FOR VERIF_2 IN VERIF + 1 .. CANT_CIFRAS LOOP
+      NUM_2 := NUM_CONT_ARRAY(VERIF_2);
+      IF NUM_1 = NUM_2 THEN REP := 1; END IF;
+      --dbms_output.put_line('ADENTRO' || ' ' || NUM_1 || ' ' || NUM_2 || 'IS_REP: ' || REP); -- LINEA 31
+    END LOOP;
+  END LOOP;
+  EXIT WHEN REP = 0 OR CONT_REPET = 1000000;
+  END LOOP;
+
+------------
+  FOR VERIF IN 1 .. CANT_CIFRAS
+    LOOP
+      --ADIV_CONT := SUBSTR(NUM_CONT,VERIF,1);
+      ADIV_CONT := NUM_CONT_ARRAY(VERIF);
+      --dbms_output.put_line ('NUM_CONT  ' || NUM_CONT || 'ADIV_CONT  ' || ADIV_CONT );
+      FOR VERIF_2 IN 1  .. CANT_CIFRAS
+        LOOP
+          --RANDOM_CONT := SUBSTR(RANDOM,VERIF_2,1);
+          RANDOM_CONT := RANDOM_ARRAY(VERIF_2);
+          IF ADIV_CONT = RANDOM_CONT AND VERIF = VERIF_2 THEN FIJA := FIJA + 1;
+          ELSIF ADIV_CONT = RANDOM_CONT THEN PICA := PICA +1;
+          END IF;
+          -- dbms_output.put_line ('ADENTRO' || VERIF_2);
+        END LOOP;
+    END LOOP;
+
+dbms_output.put_line (RANDOM_ARRAY(1)||
+                         	RANDOM_ARRAY(2)||
+                          RANDOM_ARRAY(3)||
+                          RANDOM_ARRAY(4)||
+                          RANDOM_ARRAY(5)||
+                          RANDOM_ARRAY(6)||
+                          RANDOM_ARRAY(7)||
+                          RANDOM_ARRAY(8)/*||
+                          RANDOM_ARRAY(9)*/ 
+                          || '--> ' || 
+                          NUM_CONT_ARRAY(1)||
+                         	NUM_CONT_ARRAY(2)||
+                          NUM_CONT_ARRAY(3)||
+                          NUM_CONT_ARRAY(4)||
+                          NUM_CONT_ARRAY(5)||
+                          NUM_CONT_ARRAY(6)||
+                          NUM_CONT_ARRAY(7)||
+                          NUM_CONT_ARRAY(8)/*||
+                          NUM_CONT_ARRAY(9)*/
+                          || ' F: ' || FIJA || ' P: ' || PICA);
+
+CONTADOR := CONTADOR + 1;
+EXIT WHEN FIJA = CANT_CIFRAS;
+END LOOP; 
+
+
+END;
