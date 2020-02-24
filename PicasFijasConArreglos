@@ -13,9 +13,11 @@ PICA NUMBER(1);
 CONTADOR NUMBER(5) := 1;
 CONT_REPET NUMBER(20) := 0;
 CANT_CIFRAS NUMBER (1) := 8;
-CIF_UP_RANDOM NUMBER (9) := 123456789;
-CIF_DOWN_RANDOM NUMBER (9) := 987456321;
-NUM_ACTUAL NUMBER(1);
+CIF_UP_RANDOM VARCHAR2 (10) := 0123456789;
+CIF_DOWN_RANDOM VARCHAR2 (10) := 9876543210;
+NUM_ACTUAL_1 VARCHAR2(9);
+NUM_ACTUAL_2 VARCHAR2(9);
+
 	--Definición del Tipo Tabla: MATRICES ASOCIATIVAS
     TYPE typ_assoc_array IS TABLE OF
         NUMBER(1)
@@ -54,24 +56,13 @@ LOOP
   END LOOP;
  dbms_output.put_line('REPETICIONES: ' || CONT_REPET);
   
-    /*
-    DBMS_OUTPUT.PUT_LINE('PRIMERA POS: '||RANDOM_ARRAY(1));
-    DBMS_OUTPUT.PUT(RANDOM_ARRAY(2));
-    FOR i IN 1 .. 4 LOOP
-      DBMS_OUTPUT.put(RANDOM_ARRAY(1));
-    END LOOP;
-    */
     
-    dbms_output.put_line (RANDOM_ARRAY(1)||
-                         	RANDOM_ARRAY(2)||
-                          RANDOM_ARRAY(3)||
-                          RANDOM_ARRAY(4)||
-                          RANDOM_ARRAY(5)||
-                          RANDOM_ARRAY(6)||
-                          RANDOM_ARRAY(7)||
-                          RANDOM_ARRAY(8)/*||
-                          RANDOM_ARRAY(9)*/
-                          );  
+    FOR i IN 1 .. CANT_CIFRAS LOOP
+      NUM_ACTUAL_1 := NUM_ACTUAL_1 || RANDOM_ARRAY(i);
+      --DBMS_OUTPUT.put(RANDOM_ARRAY(1));
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('EL NUMERO INICIAL ES: ' || NUM_ACTUAL_1);
+    
     
 
 ------------------- VERIFICA PICAS Y FIJAS
@@ -80,6 +71,7 @@ LOOP
 FIJA:= 0; 
 PICA :=0;
 CONT_REPET := 0;
+NUM_ACTUAL_2 := '';
 --NUM_CONT := DBMS_RANDOM.value(SUBSTR(CIF_UP_RANDOM, 1, CANT_CIFRAS), SUBSTR(CIF_DOWN_RANDOM, 1, CANT_CIFRAS));
 
 ------ ITERACIÓN VERIFICA REPETIDOS EN ALEATORIO
@@ -124,16 +116,26 @@ LOOP
           -- dbms_output.put_line ('ADENTRO' || VERIF_2);
         END LOOP;
     END LOOP;
+    
+    FOR i IN 1 .. CANT_CIFRAS LOOP
+      NUM_ACTUAL_2 := NUM_ACTUAL_2 || NUM_CONT_ARRAY(i);
+      --DBMS_OUTPUT.put(RANDOM_ARRAY(1));
+    END LOOP;
+    
+    dbms_output.put_line (NUM_ACTUAL_1
+                          || '--> ' || 
+                          NUM_ACTUAL_2
+                          || ' F: ' || FIJA || ' P: ' || PICA);
 
-dbms_output.put_line (RANDOM_ARRAY(1)||
+/*dbms_output.put_line (RANDOM_ARRAY(1)||
                          	RANDOM_ARRAY(2)||
                           RANDOM_ARRAY(3)||
                           RANDOM_ARRAY(4)||
                           RANDOM_ARRAY(5)||
                           RANDOM_ARRAY(6)||
                           RANDOM_ARRAY(7)||
-                          RANDOM_ARRAY(8)/*||
-                          RANDOM_ARRAY(9)*/ 
+                          RANDOM_ARRAY(8)||
+                          RANDOM_ARRAY(9) 
                           || '--> ' || 
                           NUM_CONT_ARRAY(1)||
                          	NUM_CONT_ARRAY(2)||
@@ -142,9 +144,9 @@ dbms_output.put_line (RANDOM_ARRAY(1)||
                           NUM_CONT_ARRAY(5)||
                           NUM_CONT_ARRAY(6)||
                           NUM_CONT_ARRAY(7)||
-                          NUM_CONT_ARRAY(8)/*||
-                          NUM_CONT_ARRAY(9)*/
-                          || ' F: ' || FIJA || ' P: ' || PICA);
+                          NUM_CONT_ARRAY(8)||
+                          NUM_CONT_ARRAY(9)
+                          || ' F: ' || FIJA || ' P: ' || PICA);*/
 
 CONTADOR := CONTADOR + 1;
 EXIT WHEN FIJA = CANT_CIFRAS;
